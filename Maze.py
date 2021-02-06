@@ -4,7 +4,7 @@ class MapSite():
     def Enter(self):
         raise NotImplementedError("Abstract Base Class method")
 
-class Directions(Enum):
+class Direction(Enum):
     North = 0
     East = 1
     South = 2
@@ -49,3 +49,35 @@ class Door(MapSite):
             print("You have passed through this door")
         else:
             print("This door needs to be opened before you can pass through it")
+
+class Maze():
+    def __init__(self):
+        self._rooms = {}
+
+    def addRoom(self,room):
+        self._rooms[room._roomNumber] = room
+
+    def roomNo(self, roomNumber):
+        return self._rooms[roomNumber]
+
+class MazeGame():
+    def createMaze(self):
+        aMaze = Maze()
+        r1 = Room(1)
+        r2 = Room(2)
+        theDoor = Door(r1,r2)
+
+        aMaze.addRoom(r1)
+        aMaze.addRoom(r2)
+
+        r1.setSide(Direction.North.value, Wall())
+        r1.setSide(Direction.East.value, theDoor)
+        r1.setSide(Direction.South.value, Wall())
+        r1.setSide(Direction.West.value, Wall())
+
+        r2.setSide(Direction.North.value, Wall())
+        r2.setSide(Direction.East.value, Wall())
+        r2.setSide(Direction.South.value, Wall())
+        r2.setSide(Direction.West.value, theDoor)
+
+        return aMaze
