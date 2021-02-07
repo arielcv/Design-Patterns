@@ -60,24 +60,41 @@ class Maze():
     def roomNo(self, roomNumber):
         return self._rooms[roomNumber]
 
+class MazeFactory():
+    @classmethod
+    def MakeMaze(cls):
+        return Maze()
+
+    @classmethod
+    def MakeWall(cls):
+        return Wall()
+
+    @classmethod
+    def MakeRoom(cls,n):
+        return Room(n)
+
+    @classmethod
+    def MakeDoor(cls, r1, r2):
+        return Door(r1, r2)
+
 class MazeGame():
-    def createMaze(self):
-        aMaze = Maze()
-        r1 = Room(1)
-        r2 = Room(2)
-        theDoor = Door(r1,r2)
+    def createMaze(self, factory = MazeFactory):
+        aMaze = factory.MakeMaze()
+        r1 = factory.MakeMaze()
+        r2 = factory.MakeMaze()
+        aDoor = factory.MakeDoor(r1,r2)
 
         aMaze.addRoom(r1)
         aMaze.addRoom(r2)
 
-        r1.setSide(Direction.North.value, Wall())
-        r1.setSide(Direction.East.value, theDoor)
-        r1.setSide(Direction.South.value, Wall())
-        r1.setSide(Direction.West.value, Wall())
+        r1.setSide(Direction.North.value, factory.MakeWall())
+        r1.setSide(Direction.East.value, aDoor)
+        r1.setSide(Direction.South.value, factory.MakeWall())
+        r1.setSide(Direction.West.value, factory.MakeWall())
 
-        r2.setSide(Direction.North.value, Wall())
-        r2.setSide(Direction.East.value, Wall())
-        r2.setSide(Direction.South.value, Wall())
-        r2.setSide(Direction.West.value, theDoor)
+        r2.setSide(Direction.North.value, factory.MakeWall())
+        r2.setSide(Direction.East.value, factory.MakeWall())
+        r2.setSide(Direction.South.value, factory.MakeWall())
+        r2.setSide(Direction.West.value, aDoor)
 
         return aMaze
