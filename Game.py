@@ -1,4 +1,4 @@
-from Maze import MazeGame, Direction
+from Maze import MazeGame, Direction, Door
 
 if __name__ == '__main__':
     print('*'*21)
@@ -11,7 +11,7 @@ if __name__ == '__main__':
     for room_number in range(5):
         try:
             room = maze_obj.roomNo(room_number)
-            print(f'Maze has room number {0}',room._roomNumber)
+            print(f'Maze has room number {room._roomNumber}',)
             print('Entering in the room')
             room.Enter()
 
@@ -19,15 +19,24 @@ if __name__ == '__main__':
 
             for i in range(4):
                 side = room.getSide(i)
-                print(f' Room: {0} Direction: {1} Type: {2}',room_number,Direction[i],isinstance(side))
-                print(f"Trying to enter to {0}",Direction[i])
+                # print(f' Room: {0} Direction: {1} Type: {2}',room_number,Direction[i],isinstance(side))
+                print(f"Trying to enter to {Direction(i).name}")
                 side.Enter()
 
-                if 'Door' in side.__class__:
+                if isinstance(side, Door):
                     door = side
 
-        except KeyError:
-            print(f"The room {0} doesn't exists ",room_number)
+                    if not door._isOpen:
+                        print("Opening the door")
+                        door._isOpen = True
+                        door.Enter()
 
-        len_rooms = len(maze_rooms)
-        print(f"There are {0} rooms",len_rooms)
+                    otherRoom = door.otherSideFrom(room)
+                    print(f"The other side of the room is Room {otherRoom._roomNumber}")
+
+
+        except KeyError:
+            print(f"The room {room_number} doesn't exists ")
+
+    len_rooms = len(maze_rooms)
+    print(f"There are {0} rooms",len_rooms)

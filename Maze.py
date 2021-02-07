@@ -23,7 +23,7 @@ class Room(MapSite):
         self._sides[direction] = mapSite
 
     def Enter(self):
-        print(f'You have entered in the room number {0}',str(self._roomNumber))
+        print(f'You have entered in the room number {str(self._roomNumber)}')
 
 class Wall(MapSite):
     def Enter(self):
@@ -36,7 +36,7 @@ class Door(MapSite):
         self._isOpen = False
 
     def otherSideFrom(self, Room: Room):
-        print(f'This door is a side of Room {0}',Room._roomNumber)
+        print(f'This door is a side of Room {Room._roomNumber}')
         if Room._roomNumber == 1:
             otherRoom = self.room2
         else:
