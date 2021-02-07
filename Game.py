@@ -1,4 +1,4 @@
-from Maze import MazeGame, Direction, Door, MazeFactory
+from Maze import MazeGame, Direction, Door, MazeFactory, EnchantedMazeFactory
 
 if __name__ == '__main__':
 
@@ -39,11 +39,25 @@ if __name__ == '__main__':
         len_rooms = len(maze_rooms)
         print(f"There are {0} rooms",len_rooms)
 
+    print('\n')
     print('*' * 21)
     print('*** The Maze Game ***')
     print('*' * 21)
+    print('\n')
 
     factory = MazeFactory
+    print(MazeFactory)
+
+    mazeObj = MazeGame().createMaze(factory)
+    find_maze_rooms(mazeObj)
+
+    print('\n')
+    print('*' * 21)
+    print('*** The Maze Game ***')
+    print('*' * 21)
+    print('\n')
+
+    factory = EnchantedMazeFactory
     print(MazeFactory)
 
     mazeObj = MazeGame().createMaze(factory)

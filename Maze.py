@@ -77,11 +77,38 @@ class MazeFactory():
     def MakeDoor(cls, r1, r2):
         return Door(r1, r2)
 
+class EnchantedMazeFactory(MazeFactory):
+    @classmethod
+    def MakeRoom(cls,n):
+        return EnchantedRoom(n, cls.castSpell())
+
+    @classmethod
+    def MakeDoor(cls, r1, r2):
+        return DoorNeedingSpell(r1, r2)
+
+    @classmethod
+    def castSpell(cls):
+        return Spell()
+
+class EnchantedRoom(Room):
+    def __init__(self, roomNo, aSpell):
+        super(EnchantedRoom, self).__init__(roomNo)
+        print(f"The spell is {aSpell}")
+
+class Spell():
+    def __repr__(self):
+        return "A hard-coded spell"
+
+class DoorNeedingSpell(Door):
+    def __init__(self,r1,r2):
+        super(DoorNeedingSpell, self).__init__(r1,r2)
+        self.spell = Spell()
+
 class MazeGame():
     def createMaze(self, factory = MazeFactory):
         aMaze = factory.MakeMaze()
-        r1 = factory.MakeMaze()
-        r2 = factory.MakeMaze()
+        r1 = factory.MakeRoom(1)
+        r2 = factory.MakeRoom(2)
         aDoor = factory.MakeDoor(r1,r2)
 
         aMaze.addRoom(r1)
