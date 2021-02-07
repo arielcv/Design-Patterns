@@ -37,7 +37,7 @@ if __name__ == '__main__':
                 print(f"The room {room_number} doesn't exists ")
 
         len_rooms = len(maze_rooms)
-        print(f"There are {0} rooms",len_rooms)
+        print(f"There are {len_rooms} rooms",)
 
     print('\n')
     print('*' * 21)
